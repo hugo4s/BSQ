@@ -29,6 +29,18 @@ void	ft_prtstr(char *str) //mudei este nome
 	}
 }
 
+void	ft_prt_error(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(2, &str[i], 1);
+		i++;
+	}
+}
+
 char	*ft_strcpy(char *dest, char *src)
 {
 	int	i;
