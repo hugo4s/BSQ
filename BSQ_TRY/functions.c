@@ -17,7 +17,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void	ft_putstr(char *str)
+void	ft_prtstr(char *str) //mudei este nome
 {
 	int	i;
 
