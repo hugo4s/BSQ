@@ -40,8 +40,9 @@ int	*max_square_position(char **map, int rows, int cols, char block_char)
 	int	y;
 	int	**f_m;
 	int	largest_val = 1;
-	int	largest_value_pos[2];
+	int	largest_value_pos[3];
 
+	largest_value_pos[2] = 1;
 	while (x <= rows)
 	{
 		while (y <= cols) //ele aqui tem j < c - 1, nao percebo
@@ -56,9 +57,9 @@ int	*max_square_position(char **map, int rows, int cols, char block_char)
 				//e fazer a o -1 dentro da funcao?
 				f_m[x][y] = min(f_m[x - 1][y], f_m[x][y - 1], f_m[x - 1][y - 1]) + 1;
 			}
-			if (largest_val < f_m[x][y])
+			if (largest_value_pos[2] < f_m[x][y])
 			{
-				largest_val = f_m[x][y];
+				largest_value_pos[2] = f_m[x][y];
 				largest_value_pos[0] = x;
 				largest_value_pos[1] = y;
 			}
