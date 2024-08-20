@@ -27,9 +27,9 @@ int	main(int argc, char **argv)
 			}
 			else
 			{
-				print_solutions(i, argv); //Rever nome
+				print_solution(i, argv);
 			}
-			i+;
+			i++;
 		}
 	}
 	else

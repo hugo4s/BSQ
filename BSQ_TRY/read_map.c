@@ -115,3 +115,71 @@ int	get_number_of_columns(map_path)
 	
 	return (i + 1);	
 }
+
+//Verificar e alterar
+char **ft_read_file(char *argv)
+{
+    char **buf;
+    int i = 0;
+    int fd;
+    int c;
+    int ret;
+    int l;
+
+    c = get_number_columns(argv);
+    l = get_number_lines(argv);
+
+    fd = open(argv, O_RDONLY);
+
+    get_second_line(fd);
+
+    buf = malloc(l * sizeof(char*));
+    if (buf == NULL)
+        return NULL;
+
+    while (i < l)
+    {
+        buf[i] = malloc(c * sizeof(char));
+        if (buf[i] == NULL)
+            return NULL;
+        i++;
+    }
+
+    i = 0;
+    while (i < l)
+    {
+        ret = read(fd, buf[i], c);
+        if (ret == -1)
+            return NULL; 
+
+        buf[i++][c - 1] = '\0';
+    }
+
+    close(fd);
+
+    return (buf);
+}
+
+int	get_width_each_line(char *argv, int fd)
+{
+    char *buf;
+    int j = 0;
+    int size_file;
+
+    size_file = ft_size_file(argv);
+
+    buf = malloc(size_file * sizeof(char));
+    if (buf == NULL)
+        return (0);
+
+    while (read(fd, &buf[j], 1))
+    {
+        if (buf[j] == '\n')
+            break;
+        j++;
+    }
+
+    free(buf);
+
+    return (j + 1);
+}

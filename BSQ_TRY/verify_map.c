@@ -24,7 +24,7 @@ int verify_map(char *map_path)
 		ft_prt_error("map error\n");
                 return (0);
 	}
-	if (verify_lines_length(map_path) == 0)
+	if (verify_lines_length(map_path, fd) == 0)
 	{
 		ft_prt_error("map error\n");
                 return (0);
@@ -53,7 +53,7 @@ int	verify_chars(char *map_path)
 	
 	size_file = get_size_file(map_path);
 	
-	ft_get_second_line(fd);
+	go_to_second_line(fd);
 	
 	file_buffer = malloc(get_size_file(map_path) * sizeof(char));
 	if (file_buffer == NULL)
@@ -62,12 +62,12 @@ int	verify_chars(char *map_path)
 		return (0);
 	}
 	
-	bytes_read = read(fd, file_buffer, size_file))
+	bytes_read = read(fd, file_buffer, size_file);
         file_buffer[bytes_read] = '\0';
 	i = 0;
-	while (buf[i])
+	while (file_buffer[i])
 	{
-        	if (buf[i] != v && buf[i] != o && buf[i] != '\n')
+        	if (file_buffer[i] != v && file_buffer[i] != o && file_buffer[i] != '\n')
 			return (1);
 		i++;
 	}
@@ -78,9 +78,9 @@ int	verify_chars(char *map_path)
 	return (1);
 }
 
-int	verify_line_breaks(char *map_path)
+int	verify_line_end_with_breaks(char *map_path)
 {
-	int	collumns;
+	int	columns;
 	char	*file_buffer;
 	int	fd;
 	int	size_file;
@@ -88,20 +88,20 @@ int	verify_line_breaks(char *map_path)
 	
 	columns = get_number_of_columns(map_path);
 	
-	size_file = ft_size_file(map_path);
+	size_file = get_size_file(map_path);
 	
-	fd = open(argv, O_RDONLY);
+	fd = open(map_path, O_RDONLY);
 	
 	go_to_second_line(fd);
 	
 	file_buffer = malloc(size_file * sizeof(char));
-	if (bufer == NULL)
+	if (file_buffer == NULL)
 	{
 		close(fd);
 		return (1);
 	}
-	
-	while ((bytes_read = read(fd, file_buffer, collumns)))
+
+	while ((bytes_read = read(fd, &file_buffer, columns)))
 	{
 		if (file_buffer[bytes_read - 1] != '\n')
 		{
@@ -115,17 +115,18 @@ int	verify_line_breaks(char *map_path)
 	return (0);
 }
 
-int	verify_columns_length(map_path)
+int	verify_each_line(char *map_path)
 {
 	int	fd;
 	int	columns;
 	int	lines;
 	int	i;
+	int	j;
 	
-	columns = get_number_of_columns();
-	lines = get_number_of_lines
+	columns = get_number_of_columns(map_path);
+	lines = get_number_of_lines(map_path);
 	
-	fd = open(man_path);
+	fd = open(map_path, O_RDONLY);
 	
 	go_to_second_line(fd);
 	
@@ -133,34 +134,11 @@ int	verify_columns_length(map_path)
 	
 	while (i < lines)
 	{
-		if ()
-	}
-}
-
-int	length_of_line(char *man_path, int fd)
-{
-	int	size_file;
-	char	*buffer;
-	int	i;
-	
-	size_file = get_size_file(man_path);
-	
-	buffer = malloc(size_file * sizeof(char));
-	if (buffer == NULL)
-	{
-		return (0);
-	}
-	
-	while (read(fd, &buffer[i], 1))
-	{
-		if (buffer[i] == '\n')
-		{
-			break;
-		}
+		j = get_width_each_line(map_path, fd);
+		if (columns != j)
+			return (1);
 		i++;
 	}
-	free(buffer);
-	return (i + 1;)
+	close(fd);
+	return (0);
 }
-
-

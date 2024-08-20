@@ -16,6 +16,7 @@ char ft_get_char_void(char *map_path)
 {
 	int	fd;
 	char	*first_line;
+	int	i;
 
 	fd = open(map_path, O_RDONLY);
 	first_line = malloc(80 * sizeof(char));
