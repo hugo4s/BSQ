@@ -23,12 +23,12 @@ char	get_char_obst(char *map_path);
 char	get_char_square(char *map_path);
 
 //read_map.c
-int	get_size_file(char *map_path);
+int get_size_file(char *map_path);
 void	go_to_second_line(int fd);
 int	get_number_of_lines(char *map_path);
 int	get_number_of_columns(char *map_path);
-int	get_width_each_line(char *argv, int fd);
-char	**ft_read_file(char *argv)
+int	get_width_each_line(char *argv);
+char	**ft_read_file(char *argv);
 
 //verify_map.c
 int	verify_map(char *map_path);

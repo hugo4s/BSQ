@@ -11,13 +11,18 @@
 /* ************************************************************************** */
 
 #include "bsq.h"
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
 	int	i;
 
 	i = 1;
-	if(argc > 1)
+	if (argc <= 1)
+	{
+		return (0);
+	}
+	else
 	{
 		while(i < argc)
 		{
@@ -31,9 +36,5 @@ int	main(int argc, char **argv)
 			}
 			i++;
 		}
-	}
-	else
-	{
-		return (0);
 	}
 }

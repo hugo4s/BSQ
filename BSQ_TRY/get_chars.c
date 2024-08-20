@@ -12,11 +12,12 @@
 
 #include "bsq.h"
 
-char ft_get_char_void(char *map_path)
+char get_char_void(char *map_path)
 {
 	int	fd;
 	char	*first_line;
 	int	i;
+	char	v;
 
 	fd = open(map_path, O_RDONLY);
 	first_line = malloc(80 * sizeof(char));
@@ -26,11 +27,11 @@ char ft_get_char_void(char *map_path)
 		return (0);
 	}
 	i = 0;
-	while(read(fd, &first_line[i], 1))
+	while (read(fd, &first_line[i], 1))
 	{
-		if(&first_line[i] == '\n')
+		if (first_line[i] == '\n')
 		{
-			break ;
+			break;
 		}
 		i++;
 	}
@@ -43,7 +44,7 @@ char ft_get_char_void(char *map_path)
 	return (v);	
 }
 
-char ft_get_char_obst(char *map_path)
+char get_char_obst(char *map_path)
 {
 	int	fd;
 	char	*first_line;
@@ -51,16 +52,16 @@ char ft_get_char_obst(char *map_path)
 	char	o;
 
 	fd = open(map_path, O_RDONLY);
-	
-	first_line = malloc(80 * sizeof(char))
+	first_line = malloc(80 * sizeof(char));
+
 	if (first_line == NULL)
 	{
 		return (0);
 	}
 	i = 0;
-	while(read(fd, &first_line[i], 1))
+	while (read(fd, &first_line[i], 1))
 	{
-		if(&first_line[i] == '\n')
+		if (first_line[i] == '\n')
 		{
 			break;
 		}
@@ -72,36 +73,35 @@ char ft_get_char_obst(char *map_path)
 	close(fd);
 	
 	return (o);
-
 }
 
-char ft_get_char_full(char *map_path)
+char get_char_square(char *map_path)
 {
-	int     fd;
-        char    *first_line;
-        int     i;
-        char    x;
+	int	fd;
+	char	*first_line;
+	int	i;
+	char	x;
 
-        fd = open(map_path, O_RDONLY);
+	fd = open(map_path, O_RDONLY);
+	first_line = malloc(80 * sizeof(char));
 
-        first_line = malloc(80 * sizeof(char))
-        if (first_line == NULL)
-        {
-                return (0);
-        }
-        i = 0;
-        while(read(fd, &first_line[i], 1))
-        {
-                if(&first_line[i] == '\n')
-                {
-                        break;
-                }
-                i++;
-        }
-        x = first_line[i - 1];
-        
+	if (first_line == NULL)
+	{
+		return (0);
+	}
+	i = 0;
+	while (read(fd, &first_line[i], 1))
+	{
+		if (first_line[i] == '\n')
+		{
+			break;
+		}
+		i++;
+	}
+
+	x = first_line[i - 1];
 	free(first_line);
-        close(fd);
+	close(fd);
 
-        return (x);
+	return (x);
 }

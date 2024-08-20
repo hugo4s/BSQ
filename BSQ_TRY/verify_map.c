@@ -19,12 +19,12 @@ int verify_map(char *map_path)
 		ft_prt_error("map error\n");
                 return (0);
 	}
-	if (verify_chars(map_path) == 0 || verify_line_breaks(map_path) == 0)
+	if (verify_chars(map_path) == 0 || verify_line_end_with_breaks(map_path) == 0)
 	{
 		ft_prt_error("map error\n");
                 return (0);
 	}
-	if (verify_lines_length(map_path, fd) == 0)
+	if (verify_each_line(map_path) == 0)
 	{
 		ft_prt_error("map error\n");
                 return (0);
@@ -134,7 +134,7 @@ int	verify_each_line(char *map_path)
 	
 	while (i < lines)
 	{
-		j = get_width_each_line(map_path, fd);
+		j = get_width_each_line(map_path);
 		if (columns != j)
 			return (1);
 		i++;
