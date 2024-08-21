@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_verif_map.c                                     :+:      :+:    :+:   */
+/*   verify_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husamuel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gjose-fr <gjose-fr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 11:29:44 by husamuel          #+#    #+#             */
-/*   Updated: 2024/08/21 11:29:47 by husamuel         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:54:28 by gjose-fr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,7 @@ int	verify_chars(char *argv)
 	int		i;
 	int		fd;
 	char	*buf;
-	char	v;
-	char	o;
 
-	i = 0;
-	v = get_char_void(argv);
-	o = get_char_obst(argv);
 	fd = open(argv, O_RDONLY);
 	get_second_line(fd);
 	buf = malloc(get_size_file(argv) * sizeof(char));
@@ -30,15 +25,16 @@ int	verify_chars(char *argv)
 		return (0);
 	while (read(fd, buf, get_size_file(argv)))
 		buf[get_size_file(argv)] = '\0';
-	while (buf[i])
+	i = 0;
+	while (buf[i++])
 	{
-		if (buf[i] != v && buf[i] != o && buf[i] != '\n')
+		if (buf[i] != gc_void(argv)
+			&& buf[i] != gc_obst(argv) && buf[i] != '\n')
 		{
 			free(buf);
 			close(fd);
 			return (1);
 		}
-		i++;
 	}
 	close(fd);
 	free(buf);
@@ -105,7 +101,7 @@ int	verify_end_breaks(char *argv)
 	buf = malloc(size_file * sizeof(char));
 	if (buf == NULL)
 		return (0);
-	while (ret = read(fd, buf, c))
+	while (read(fd, buf, c))
 	{
 		if (buf[ret - 1] != '\n')
 			return (1);
