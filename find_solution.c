@@ -46,7 +46,7 @@ int *max_square_position(char **map, int rows, int cols, char obst_char) {
     }
     largest_value_pos[0] = 0;
     largest_value_pos[1] = 0;
-    largest_value_pos[2] = 0;
+    largest_value_pos[2] = 0;  // Inicializa como 0 para evitar falsos positivos
 
     f_m = generate_map(rows, cols);
     if (f_m == NULL) {
@@ -54,11 +54,9 @@ int *max_square_position(char **map, int rows, int cols, char obst_char) {
         return NULL;
     }
 
-    while (x < rows) //alt
-    {
+    while (x < rows - 1) { //alt -1 porque comeca no 0
         y = 0;
-        while (y < cols) //alt
-        {
+        while (y < cols - 1) { //alt -1 porque comeca no 0
             if (map[x][y] == obst_char)
                 f_m[x][y] = 0;
             else if (x == 0 || y == 0)
@@ -68,14 +66,13 @@ int *max_square_position(char **map, int rows, int cols, char obst_char) {
 
             if (f_m[x][y] > largest_value_pos[2]) {
                 largest_value_pos[2] = f_m[x][y];
-                largest_value_pos[0] = x;
-                largest_value_pos[1] = y;
+                largest_value_pos[0] = y; // = y pq o x é que define a fila
+                largest_value_pos[1] = x;
             }
             y++;
         }
         x++;
     }
-
     i = 0;
     while (i < rows) {
         free(f_m[i]);
@@ -85,3 +82,4 @@ int *max_square_position(char **map, int rows, int cols, char obst_char) {
     
     return largest_value_pos;
 }
+

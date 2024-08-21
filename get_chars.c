@@ -1,4 +1,4 @@
-#include "BSQ.h"
+#include "bsq.h"
 
 char ft_get_char_void(char *argv)
 {

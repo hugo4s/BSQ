@@ -1,4 +1,4 @@
-#include "BSQ.h"
+#include "bsq.h"
 
 int main(int argc, char **argv)
 {
@@ -13,7 +13,7 @@ int main(int argc, char **argv)
                 return 0;
             else
             {
-                ft_print_solutions(i, argv);
+                print_solution(i, argv);
             }
             i++;
         }

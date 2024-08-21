@@ -1,4 +1,4 @@
-#include "BSQ.h"
+#include "bsq.h"
 
 int ft_size_file(char *argv)
 {
