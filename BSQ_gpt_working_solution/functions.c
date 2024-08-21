@@ -1,0 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   functions.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: husamuel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/21 11:16:22 by husamuel          #+#    #+#             */
+/*   Updated: 2024/08/21 11:16:27 by husamuel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "bsq.h"
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (*(str + i) != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = src[i];
+	return (dest);
+}
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putstr(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+}
+
+void	ft_putnbr(int nb)
+{
+	char	array[10];
+	int		i;
+
+	i = 0;
+	if (nb < 0)
+	{
+		ft_putchar('-');
+		nb = -nb;
+	}
+	if (nb == 0)
+	{
+		ft_putchar(48);
+	}
+	while (nb > 0)
+	{
+		array[i] = nb % 10;
+		i++;
+		nb /= 10;
+	}
+	while (i > 0)
+	{
+		i--;
+		ft_putchar(array[i] + 48);
+	}
+}
