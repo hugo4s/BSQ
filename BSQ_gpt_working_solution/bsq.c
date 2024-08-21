@@ -21,11 +21,15 @@ int	main(int argc, char **argv)
 	{
 		while (i < argc)
 		{
-			if ((ft_verif_map(argv[i])) == 1)
+			if ((verify_map(argv[i])) == 1)
 				return (0);
 			else
 			{
 				print_solution(i, argv);
+				if (argv[i + 1] != NULL)
+				{
+					ft_putchar('\n');
+				}
 			}
 			i++;
 		}

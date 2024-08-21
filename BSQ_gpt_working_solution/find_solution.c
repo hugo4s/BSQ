@@ -46,7 +46,7 @@ int *max_square_position(char **map, int rows, int cols, char obst_char) {
     }
     largest_value_pos[0] = 0;
     largest_value_pos[1] = 0;
-    largest_value_pos[2] = 0;  // Inicializa como 0 para evitar falsos positivos
+    largest_value_pos[2] = 0;
 
     f_m = generate_map(rows, cols);
     if (f_m == NULL) {
@@ -54,9 +54,11 @@ int *max_square_position(char **map, int rows, int cols, char obst_char) {
         return NULL;
     }
 
-    while (x < rows) {
+    while (x < rows) //alt
+    {
         y = 0;
-        while (y < cols) {
+        while (y < cols) //alt
+        {
             if (map[x][y] == obst_char)
                 f_m[x][y] = 0;
             else if (x == 0 || y == 0)
@@ -83,4 +85,3 @@ int *max_square_position(char **map, int rows, int cols, char obst_char) {
     
     return largest_value_pos;
 }
-

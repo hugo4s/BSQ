@@ -1,4 +1,4 @@
-SRC = bsq.c find_solution.c functions.c ft_get_chars.c print_solution.c ft_read_map.c ft_verif_map.c
+SRC = bsq.c find_solution.c functions.c get_chars.c print_solution.c read_map.c verify_map.c
 
 all:
 	cc -Wall -Wextra -Werror $(SRC) -o bsq

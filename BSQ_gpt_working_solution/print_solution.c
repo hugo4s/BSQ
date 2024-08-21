@@ -23,13 +23,14 @@ char **populate_map(char **map, int rows, int cols, char obst_char, char square_
         return NULL;  // Se não houver um quadrado válido
     }
 
-    square_first_pos[0] = square_last_pos[0] - square_last_pos[2] - 1;
-    square_first_pos[1] = square_last_pos[1] - square_last_pos[2] - 1;
+    // Correção do cálculo das posições
+    square_first_pos[0] = square_last_pos[1] - square_last_pos[2] + 1;
+    square_first_pos[1] = square_last_pos[0] - square_last_pos[2] + 1;
 
     y = square_first_pos[1];
-    while (y <= square_last_pos[1]) {
+    while (y <= square_last_pos[0]) {
         x = square_first_pos[0];
-        while (x <= square_last_pos[0]) {
+        while (x <= square_last_pos[1]) {
             if (x >= 0 && y >= 0 && x < cols && y < rows) {  // Verificação de limites
                 map[y][x] = square_char;
             }
@@ -42,6 +43,7 @@ char **populate_map(char **map, int rows, int cols, char obst_char, char square_
     return map;
 }
 
+
 void print_solution(int i, char **map_path) {
     char obst_char;
     char square_char;
@@ -52,15 +54,16 @@ void print_solution(int i, char **map_path) {
     int k = 0;
     char **map = NULL;  // Inicializa a variável 'map' com NULL
 
-    obst_char = ft_get_char_obst(map_path[i]);
-    square_char = ft_get_char_full(map_path[i]);
-    num_of_rows = ft_get_number_lines(map_path[i]);
-    num_of_columns = ft_get_number_columns(map_path[i]);
+    obst_char = get_char_obst(map_path[i]);
+    square_char = get_char_full(map_path[i]);
+    num_of_rows = get_number_lines(map_path[i]);
+    num_of_columns = get_number_columns(map_path[i]);
 
     fd = open(map_path[i], O_RDONLY);
     if (fd >= 0) {
-        map = ft_read_file(map_path[i]);
-    }
+        map = read_file(map_path[i]);
+        close(fd);  // Fechar o arquivo após a leitura
+    } 
 
     if (map != NULL) {  // Verifica se 'map' foi inicializado corretamente
         if (populate_map(map, num_of_rows, num_of_columns, obst_char, square_char) != NULL) {
@@ -70,13 +73,10 @@ void print_solution(int i, char **map_path) {
                 j++;
             }
         }
-
         while (k < num_of_rows) {
             free(map[k]);
             k++;
         }
         free(map);
     }
-
-    close(fd);
-}
+   }
